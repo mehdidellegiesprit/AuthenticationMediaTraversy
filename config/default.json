@@ -1,3 +1,4 @@
 {
-    "mongoURI":"mongodb+srv://mehdi_dellegi:mehdi4twin@devconnector.piegq.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
+  "mongoURI": "mongodb+srv://mehdi_dellegi:mehdi4twin@devconnector.piegq.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
+  "jwtSecret": "mysecrettoken"
 }
