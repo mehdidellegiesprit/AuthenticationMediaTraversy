@@ -9,7 +9,7 @@ const Alert = ({ alerts }) =>
       <div key={alert.id} className={"alert alert-" + alert.alertType}>
         {alert.msg}
       </div>
-    </div>
+     </div>
   ));
 
 Alert.propTypes = {
