@@ -10,9 +10,11 @@ const Dashboard = ({
   auth: { user },
   profile: { profile, loading },
 }) => {
-  useEffect(() => {
+  // getCurrentProfile();
+  useEffect(async () => {
     console.log("Use effect getCurrentProfile");
-    getCurrentProfile();
+    // avoir probleme with await
+    await getCurrentProfile();
   }, []);
   return loading && profile === null ? (
     <Spinner />
@@ -23,17 +25,17 @@ const Dashboard = ({
         <p className="lead">
           <i className="fas fa-user">Welcom {user && user.name} </i>
         </p>
+        {/* {loading || profile === null ? <Spinner /> : null} */}
         {profile !== null ? (
-          <Fragment>has</Fragment>
+          <Fragment>has profile</Fragment>
         ) : (
           <Fragment>
             <p>You have not yet setup a profile , please add some info </p>
             <Link to="/create-profile" className="btn btn-primary my-1">
-                Create Profile
+              Create Profile
             </Link>
           </Fragment>
         )}
-
       </div>
     </Fragment>
   );

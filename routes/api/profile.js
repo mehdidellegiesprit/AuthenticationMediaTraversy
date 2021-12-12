@@ -101,7 +101,8 @@ router.post(
       // else Create  profile
       profile = new Profile(profileFields);
       await profile.save();
-      res.json(profile);
+      res.json(profile);       // hethi melouwel 9bal mane5dem l front
+      // res.redirect("/dashboard");
     } catch (err) {
       console.error(err.message);
       res.status(500).send("Server Error");

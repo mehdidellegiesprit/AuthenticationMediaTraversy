@@ -1,8 +1,14 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useEffect } from "react";
+import { Link,useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import { createProfile } from "../../actions/profile";
 
-const CreateProfile = (props) => {
+import Dashboard from "../dashboard/Dashboard";
+import Register from "../layout/Spinner";
+import { getCurrentProfile } from "../../actions/profile";
+
+const CreateProfile = ({ profile,redirect_dash, createProfile, getCurrentProfile }) => {
   const [formData, setFormData] = useState({
     company: "",
     website: "",
@@ -37,6 +43,14 @@ const CreateProfile = (props) => {
   const onChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+  const onSubmit = (e) => {
+    e.preventDefault();
+    createProfile(formData);
+  };
+  let navigate = useNavigate();
+  {
+    redirect_dash===true && navigate("/dashboard")
+  }
   return (
     <Fragment>
       <section className="container">
@@ -46,7 +60,7 @@ const CreateProfile = (props) => {
           your profile stand out
         </p>
         <small>* = required field</small>
-        <form className="form">
+        <form className="form" onSubmit={(e) => onSubmit(e)}>
           <div className="form-group">
             <select name="status" value={status} onChange={(e) => onChange(e)}>
               <option value="0">* Select Professional Status</option>
@@ -124,21 +138,21 @@ const CreateProfile = (props) => {
               username
             </small>
           </div>
-          <div class="form-group">
+          <div className="form-group">
             <textarea
               placeholder="A short bio of yourself"
               name="bio"
               value={bio}
               onChange={(e) => onChange(e)}
             ></textarea>
-            <small class="form-text">Tell us a little about yourself</small>
+            <small className="form-text">Tell us a little about yourself</small>
           </div>
 
-          <div class="my-2">
+          <div className="my-2">
             <button
               onClick={() => toggleSocialInputs(!displaySocialInputs)}
               type="button"
-              class="btn btn-light"
+              className="btn btn-light"
             >
               Add Social Network Links
             </button>
@@ -147,8 +161,8 @@ const CreateProfile = (props) => {
 
           {displaySocialInputs && (
             <Fragment>
-              <div class="form-group social-input">
-                <i class="fab fa-twitter fa-2x"></i>
+              <div className="form-group social-input">
+                <i className="fab fa-twitter fa-2x"></i>
                 <input
                   type="text"
                   placeholder="Twitter URL"
@@ -157,8 +171,8 @@ const CreateProfile = (props) => {
                   onChange={(e) => onChange(e)}
                 />
               </div>
-              <div class="form-group social-input">
-                <i class="fab fa-facebook fa-2x"></i>
+              <div className="form-group social-input">
+                <i className="fab fa-facebook fa-2x"></i>
                 <input
                   type="text"
                   placeholder="Facebook URL"
@@ -167,8 +181,8 @@ const CreateProfile = (props) => {
                   onChange={(e) => onChange(e)}
                 />
               </div>
-              <div class="form-group social-input">
-                <i class="fab fa-youtube fa-2x"></i>
+              <div className="form-group social-input">
+                <i className="fab fa-youtube fa-2x"></i>
                 <input
                   type="text"
                   placeholder="YouTube URL"
@@ -177,8 +191,8 @@ const CreateProfile = (props) => {
                   onChange={(e) => onChange(e)}
                 />
               </div>
-              <div class="form-group social-input">
-                <i class="fab fa-linkedin fa-2x"></i>
+              <div className="form-group social-input">
+                <i className="fab fa-linkedin fa-2x"></i>
                 <input
                   type="text"
                   placeholder="Linkedin URL"
@@ -187,8 +201,8 @@ const CreateProfile = (props) => {
                   onChange={(e) => onChange(e)}
                 />
               </div>
-              <div class="form-group social-input">
-                <i class="fab fa-instagram fa-2x"></i>
+              <div className="form-group social-input">
+                <i className="fab fa-instagram fa-2x"></i>
                 <input
                   type="text"
                   placeholder="Instagram URL"
@@ -200,8 +214,8 @@ const CreateProfile = (props) => {
             </Fragment>
           )}
 
-          <input type="submit" class="btn btn-primary my-1" />
-          <a class="btn btn-light my-1" href="dashboard.html">
+          <input type="submit" className="btn btn-primary my-1" />
+          <a className="btn btn-light my-1" href="dashboard.html">
             Go Back
           </a>
         </form>
@@ -209,7 +223,17 @@ const CreateProfile = (props) => {
     </Fragment>
   );
 };
+CreateProfile.propTypes = {
+  getCurrentProfile: PropTypes.func.isRequired,
+  createProfile: PropTypes.func.isRequired,
+  profile: PropTypes.object,
+};
 
-CreateProfile.propTypes = {};
+const mapStateToProps = (state) => ({
+  profile: state.profile.profile,
+  redirect_dash: state.profile.redirect_dash,
+});
 
-export default CreateProfile;
+export default connect(mapStateToProps, { createProfile, getCurrentProfile })(
+  CreateProfile
+);
