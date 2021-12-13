@@ -11,6 +11,7 @@ import {
   CLEAR_PROFILE,
 } from "./types";
 import setAuthToken from "../utils/setAuthToken";
+import { Navigate } from "react-router-dom";
 // Load User
 export const loadUser = () => async (dispatch) => {
   if (localStorage.token) {
@@ -32,7 +33,7 @@ export const loadUser = () => async (dispatch) => {
 
 //Register User
 export const register =
-  ({ name, email, password }) =>
+  ({ name, email, password, navigate }) =>
   async (dispatch) => {
     const config = {
       headers: {
@@ -50,6 +51,7 @@ export const register =
         payload: res.data,
       });
       dispatch(loadUser());
+      navigate("/dashboard");
     } catch (err) {
       const errors = err.response.data.errors;
       if (errors) {
@@ -63,7 +65,7 @@ export const register =
   };
 //!!!! Login User
 //Login User
-export const login = (email, password) => async (dispatch) => {
+export const login = (email, password, navigate) => async (dispatch) => {
   const config = {
     headers: {
       "Content-Type": "application/json",
@@ -80,6 +82,7 @@ export const login = (email, password) => async (dispatch) => {
       payload: res.data,
     });
     dispatch(loadUser());
+    navigate("/dashboard");
   } catch (err) {
     const errors = err.response.data.errors;
     if (errors) {

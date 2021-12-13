@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from "react";
-import { Link, Navigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { login } from "../../actions/auth";
@@ -13,44 +13,16 @@ const Login = ({ login, isAuthenticated }) => {
   const onChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+  let navigate = useNavigate();
   const onSubmit = async (e) => {
     //we must do it
     e.preventDefault();
 
     console.log("success");
 
-    login(email, password);
+    login(email, password,navigate);
   };
-
-  // just a test we do it i redux
-  //   const onSubmit = async (e) => {
-  //     //we must do it
-  //     e.preventDefault();
-  //     if (password != password2) {
-  //       console.log("password do not match");
-  //     } else {
-  //       console.log(formData);
-  //       const newUser = {
-  //         name,
-  //         email,
-  //         password,
-  //       };
-  //       try {
-  //         const config = {
-  //           headers: {
-  //             "Content-Type": "application/json",
-  //           },
-  //         };
-  //         const body = JSON.stringify(newUser);
-  //         const res = await axios.post("/api/users", body, config);
-  //         console.log(res.data);
-  //       } catch (err) {
-  //         console.error(err.response.data);
-  //       }
-  //     }
-  //   };
-
-  //Redirect if logged in
+  //Redirect if logged in we can t access to login if we are logged in 
   if (isAuthenticated) {
     return <Navigate to="/dashboard" />;
   }

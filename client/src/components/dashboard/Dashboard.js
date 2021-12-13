@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import Spinner from "../layout/Spinner";
-
+import DashboardActions from "./DashboardActions";
 import { getCurrentProfile } from "../../actions/profile";
 const Dashboard = ({
   getCurrentProfile,
@@ -11,10 +11,10 @@ const Dashboard = ({
   profile: { profile, loading },
 }) => {
   // getCurrentProfile();
-  useEffect(async () => {
+  useEffect(() => {
     console.log("Use effect getCurrentProfile");
     // avoir probleme with await
-    await getCurrentProfile();
+    getCurrentProfile();
   }, []);
   return loading && profile === null ? (
     <Spinner />
@@ -27,7 +27,10 @@ const Dashboard = ({
         </p>
         {/* {loading || profile === null ? <Spinner /> : null} */}
         {profile !== null ? (
-          <Fragment>has profile</Fragment>
+          <Fragment>
+            <DashboardActions />
+            has
+          </Fragment>
         ) : (
           <Fragment>
             <p>You have not yet setup a profile , please add some info </p>
@@ -39,7 +42,6 @@ const Dashboard = ({
       </div>
     </Fragment>
   );
-  //   return <div className="container">Dashboard component here</div>;
 };
 
 Dashboard.propTypes = {

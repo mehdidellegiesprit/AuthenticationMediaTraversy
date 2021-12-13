@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from "react";
 import { connect } from "react-redux";
-import { Link, Navigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { setAlert } from "../../actions/alert";
 import { register } from "../../actions/auth";
 
@@ -19,6 +19,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
   const onChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+  let navigate = useNavigate();
   const onSubmit = async (e) => {
     //we must do it
     e.preventDefault();
@@ -27,7 +28,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
       setAlert("password do not match", "danger");
     } else {
       console.log("success");
-      register({ name, email, password });
+      register({ name, email, password, navigate });
     }
   };
 

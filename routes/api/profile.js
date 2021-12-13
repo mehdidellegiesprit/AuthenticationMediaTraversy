@@ -23,7 +23,7 @@ router.get("/me", auth, async (req, res) => {
       return res.status(400).json({ msg: "There is no profile for this user" });
     }
     res.json(profile);
-  } catch (error) {
+  } catch (err) {
     console.error(err.message);
     res.status(500).send("Server Error");
   }
@@ -71,10 +71,16 @@ router.post(
     if (status) profileFields.status = status;
     if (githubusername) profileFields.githubusername = githubusername;
     if (skills) {
+      console.log("a2333333");
+      // console.log(skills.split(","));
+      console.log("a2333333");
       profileFields.skills = skills.split(",").map((skill) => {
+        console.log("skill");
+        console.log(skill);
         return skill.trim();
       });
     }
+    console.log("*** profileFieldsskills ***");
     console.log(profileFields.skills);
     // build social object
     profileFields.social = {};
@@ -101,8 +107,7 @@ router.post(
       // else Create  profile
       profile = new Profile(profileFields);
       await profile.save();
-      res.json(profile);       // hethi melouwel 9bal mane5dem l front
-      // res.redirect("/dashboard");
+      res.json(profile);
     } catch (err) {
       console.error(err.message);
       res.status(500).send("Server Error");
@@ -313,7 +318,7 @@ router.get("/github/:username", (req, res) => {
       }
       res.json(JSON.parse(body));
     });
-  } catch (error) {
+  } catch (err) {
     console.error(err.message);
     res.status(500).send("Server Error");
   }

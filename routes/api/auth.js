@@ -26,10 +26,7 @@ router.post(
   "/",
   [
     check("email", "Please include a valid email").isEmail(),
-    check(
-      "password", 
-      "Password is required "
-    ).exists(),
+    check("password", "Password is required ").exists(),
   ],
   async (req, res) => {
     // console.log(req.body);
@@ -38,7 +35,7 @@ router.post(
       return res.status(400).json({ errors: errors.array() });
     }
 
-    const {  email, password } = req.body;
+    const { email, password } = req.body;
 
     try {
       //See if user exists
@@ -49,12 +46,12 @@ router.post(
           .json({ errors: [{ msg: "Invalid Credentials" }] });
       }
 
-      // we must verify if the password match exact 
-      const isMatch = await bcrypt.compare(password,user.password)
-      if (!isMatch){
+      // we must verify if the password match exact
+      const isMatch = await bcrypt.compare(password, user.password);
+      if (!isMatch) {
         return res
-            .status(400)
-            .json({ errors: [{ msg: "Invalid Credentials" }] });
+          .status(400)
+          .json({ errors: [{ msg: "Invalid Credentials" }] });
       }
       //Return jsonwebtoken
       const payload = {
@@ -71,8 +68,7 @@ router.post(
           return res.json({ token });
         }
       );
-
-    } catch (error) {
+    } catch (err) {
       console.error(err.message);
       res.status(500).send("Server error");
     }

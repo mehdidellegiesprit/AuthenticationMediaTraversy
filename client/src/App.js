@@ -13,6 +13,7 @@ import Login from "./components/auth/Login";
 import Alert from "./components/layout/Alert";
 import Dashboard from "./components/dashboard/Dashboard";
 import CreateProfile from "./components/profile-forms/CreateProfile";
+import EditProfile from "./components/profile-forms/EditProfile";
 
 import PrivateRoute from "./components/routing/PrivateRoute";
 
@@ -54,6 +55,7 @@ const App = () => {
                 </PrivateRoute>
               }
             ></Route>
+            {/* create profile route */}
             <Route
               exact
               path="/create-profile"
@@ -63,6 +65,16 @@ const App = () => {
                 </PrivateRoute>
               }
             ></Route>{" "}
+            {/* edit profile route */}
+            <Route
+              exact
+              path="/edit-profile"
+              element={
+                <PrivateRoute>
+                  <EditProfile></EditProfile>
+                </PrivateRoute>
+              }
+            ></Route>
           </Routes>
         </Fragment>
       </Router>

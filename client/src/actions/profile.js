@@ -22,16 +22,21 @@ export const getCurrentProfile = () => async (dispatch) => {
 };
 // create or update profile
 export const createProfile =
-  (formData, edit = false) =>
+  (formData, edit = false, navigate) =>
   async (dispatch) => {
-    //  history feha methode push to redirect us to the client side route
     try {
       const config = {
         headers: {
           "Content-Type": "application/json",
         },
       };
+      console.log("begin formData edit");
+
+      console.log(formData);
+      console.log("end formData edit");
+
       const res = await axios.post("/api/profile", formData, config);
+      console.log("*********************************************")
       dispatch({
         type: GET_PROFILE,
         payload: res.data,
@@ -39,30 +44,22 @@ export const createProfile =
       dispatch(
         setAlert(edit ? "Profile Updated" : "Profile Created ", "success")
       );
-      try {
-        if (!edit) {
-          dispatch({
-            type: REDIRECT_TO,
-            payload: true,
-          });
-        }
-      } catch (error) {
-        console.log(
-          "cannot redirect you to dashboard probleme with function navigate "
-        );
-      }
+      navigate("/dashboard");
     } catch (err) {
       console.log("err create profile !!!!!!!! ");
       console.log(err);
-      const errors = err.response.data.errors;
-      if (errors) {
-        errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
+      if (err.response) {
+        const errors = err.response.data.errors;
+        if (errors) {
+          errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
+        }
       }
+
       dispatch({
         type: PROFILE_ERROR,
         // a voir response bech ta3ref l payload chnoi : status 500 res server error arja3 lel code 5ir emte3 node
         payload: {
-          msg: err.response.statusText,
+          msg: err.response.statusText || "ici problem",
           status: err.response.status,
         },
       });
