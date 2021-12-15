@@ -2,7 +2,7 @@ import {
   GET_PROFILE,
   PROFILE_ERROR,
   CLEAR_PROFILE,
-  REDIRECT_TO,
+  UPDATE_PROFILE,
 } from "../actions/types";
 // visa express
 const initialState = {
@@ -17,6 +17,7 @@ export default function (state = initialState, action) {
   const { type, payload } = action;
   switch (type) {
     case GET_PROFILE:
+    case UPDATE_PROFILE:
       return {
         ...state,
         profile: payload,
@@ -34,11 +35,6 @@ export default function (state = initialState, action) {
         profile: null,
         repos: [],
         loading: false,
-      };
-    case REDIRECT_TO:
-      return {
-        ...state,
-        redirect_dash: payload,
       };
     default:
       return state;
