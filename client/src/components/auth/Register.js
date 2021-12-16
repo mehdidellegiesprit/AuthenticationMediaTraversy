@@ -3,8 +3,6 @@ import { connect } from "react-redux";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { setAlert } from "../../actions/alert";
 import { register } from "../../actions/auth";
-
-import axios from "axios";
 import PropTypes from "prop-types";
 
 const Register = ({ setAlert, register, isAuthenticated }) => {

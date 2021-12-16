@@ -11,7 +11,6 @@ import {
   CLEAR_PROFILE,
 } from "./types";
 import setAuthToken from "../utils/setAuthToken";
-import { Navigate } from "react-router-dom";
 // Load User
 export const loadUser = () => async (dispatch) => {
   if (localStorage.token) {

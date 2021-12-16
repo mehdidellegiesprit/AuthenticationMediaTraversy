@@ -28,14 +28,7 @@ const EditProfile = ({
 
   // getCurrentProfile();
   useEffect(() => {
-    console.log("Use effect getCurrentProfile from EditProfile");
     getCurrentProfile();
-    console.log("profile");
-    if (profile) {
-      console.log(profile);
-    }
-    console.log("***************************profile.skills******************");
-
     profile && profile.skills && console.log(profile.skills);
 
     setFormData({
@@ -53,7 +46,7 @@ const EditProfile = ({
       youtube: loading || !profile.social ? "" : profile.social.youtube,
       instagram: loading || !profile.social ? "" : profile.social.instagram,
     });
-  }, [loading]);
+  }, [loading, getCurrentProfile]);
 
   const {
     company,

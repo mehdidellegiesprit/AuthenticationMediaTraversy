@@ -19,7 +19,7 @@ const Dashboard = ({
     console.log("Use effect getCurrentProfile");
     // avoir probleme with await
     getCurrentProfile();
-  }, []);
+  }, [getCurrentProfile]);
   return loading && profile === null ? (
     <Spinner />
   ) : (
