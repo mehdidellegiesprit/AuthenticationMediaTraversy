@@ -1,8 +1,10 @@
 import {
   GET_PROFILE,
+  GET_PROFILES,
   PROFILE_ERROR,
   CLEAR_PROFILE,
   UPDATE_PROFILE,
+  GET_REPOS,
 } from "../actions/types";
 // visa express
 const initialState = {
@@ -11,7 +13,6 @@ const initialState = {
   repos: [],
   loading: true, // request en cours d envoie or not
   error: {},
-  redirect_dash: null,
 };
 export default function (state = initialState, action) {
   const { type, payload } = action;
@@ -21,6 +22,12 @@ export default function (state = initialState, action) {
       return {
         ...state,
         profile: payload,
+        loading: false,
+      };
+    case GET_PROFILES:
+      return {
+        ...state,
+        profiles: payload,
         loading: false,
       };
     case PROFILE_ERROR:
@@ -34,6 +41,12 @@ export default function (state = initialState, action) {
         ...state,
         profile: null,
         repos: [],
+        loading: false,
+      }; 
+    case GET_REPOS:
+      return {
+        ...state,
+        repos: payload,
         loading: false,
       };
     default:
