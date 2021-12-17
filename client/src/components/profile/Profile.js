@@ -3,18 +3,14 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { useParams, Link } from "react-router-dom";
 import Spinner from "../layout/Spinner";
-import ProfileTop from './ProfileTop'
+import ProfileTop from "./ProfileTop";
 import ProfileAbout from "./ProfileAbout";
 import ProfileExperience from "./ProfileExperience";
 import ProfileEducation from "./ProfileEducation";
+import ProfileGithub from "./ProfileGithub";
 import { getProfileById } from "../../actions/profile";
 
-const Profile = ({
-  getProfileById,
-  profile: { profile, loading },
-  auth,
-  match,
-}) => {
+const Profile = ({ getProfileById, profile: { profile, loading }, auth }) => {
   const params = useParams();
   useEffect(() => {
     if (profile !== null && profile.user !== null) {
@@ -44,7 +40,7 @@ const Profile = ({
               <ProfileTop profile={profile} />
               <ProfileAbout profile={profile} />
               <div className="profile-exp bg-white p-2">
-                <h2 class="text-primary">Experience</h2>
+                <h2 className="text-primary">Experience</h2>
                 {profile.experience.length > 0 ? (
                   <Fragment>
                     {profile.experience.map((experience) => {
@@ -62,7 +58,7 @@ const Profile = ({
               </div>
               {/* !!!! */}
               <div className="profile-edu bg-white p-2">
-                <h2 class="text-primary">Education</h2>
+                <h2 className="text-primary">Education</h2>
                 {profile.education.length > 0 ? (
                   <Fragment>
                     {profile.education.map((education) => {
@@ -75,9 +71,14 @@ const Profile = ({
                     })}
                   </Fragment>
                 ) : (
-                  <h4>No Education found</h4>
+                  <h4>No Education Credentials</h4>
                 )}
               </div>
+              {profile.githubusername && (
+                <ProfileGithub
+                  username={profile.githubusername}
+                />
+              )}
             </div>
           </Fragment>
         )}
