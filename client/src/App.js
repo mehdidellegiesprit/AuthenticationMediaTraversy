@@ -12,7 +12,8 @@ import AddExperience from "./components/profile-forms/AddExperience";
 import AddEducation from "./components/profile-forms/AddEducation";
 import Profiles from "./components/profiles/Profiles";
 import Profile from "./components/profile/Profile";
-
+import Posts from "./components/posts/Posts";
+import Post from "./components/post/Post";
 import PrivateRoute from "./components/routing/PrivateRoute";
 
 //Redux
@@ -91,6 +92,26 @@ const App = () => {
               element={
                 <PrivateRoute>
                   <AddEducation></AddEducation>
+                </PrivateRoute>
+              }
+            ></Route>
+            {/* !!!Posts */}
+            <Route
+              exact
+              path="/posts"
+              element={
+                <PrivateRoute>
+                  <Posts></Posts>
+                </PrivateRoute>
+              }
+            ></Route>
+            {/* Post */}
+            <Route
+              exact
+              path="/posts/:id"
+              element={
+                <PrivateRoute>
+                  <Post></Post>
                 </PrivateRoute>
               }
             ></Route>
