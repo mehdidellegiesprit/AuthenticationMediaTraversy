@@ -75,9 +75,7 @@ const Profile = ({ getProfileById, profile: { profile, loading }, auth }) => {
                 )}
               </div>
               {profile.githubusername && (
-                <ProfileGithub
-                  username={profile.githubusername}
-                />
+                <ProfileGithub username={profile.githubusername} />
               )}
             </div>
           </Fragment>
